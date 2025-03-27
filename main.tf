@@ -33,10 +33,7 @@ resource "google_compute_instance" "vm_instance" {
 
 resource "google_compute_firewall" "wordpress_ingress" {
   name    = "ssh"
-  network = "default"
-  allow {
-    protocol = "icmp"
-  }
+  network = "default" 
   allow {
     protocol = "tcp"
     ports    = ["22", "80", "443"]
