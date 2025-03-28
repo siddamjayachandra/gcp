@@ -17,7 +17,7 @@ provider "google" {
 resource "google_compute_instance" "vm_instance" {
   name         = "management"
   machine_type = "e2-micro"
-  tags = ["ssh", "http-server", "https-server"]
+  tags = ["http-server", "https-server"]
 
   boot_disk {
     initialize_params {
@@ -32,14 +32,14 @@ resource "google_compute_instance" "vm_instance" {
   }
 }
 
-resource "google_compute_firewall" "ingress" {
-  name    = "ports"
-  network = "default" 
-  allow {
-    protocol = "tcp"
+#resource "google_compute_firewall" "ingress" {
+  #name    = "ports"
+  #network = "default" 
+  #allow {
+ #   protocol = "tcp"
     #ports    = ["22", "80", "443"]
-  }
-  source_ranges = ["0.0.0.0/0"]
-  target_tags = ["ssh", "http-server", "https-server"]
-}
+ # }
+ # source_ranges = ["0.0.0.0/0"]
+ # target_tags = ["ssh", "http-server", "https-server"]
+#}
 
