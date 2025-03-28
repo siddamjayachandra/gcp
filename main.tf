@@ -11,12 +11,13 @@ provider "google" {
   credentials = "credentials.json"
   project     = "eastern-adapter-455005-c6"
   region      = "asia-south1"
-  zone        = "asia-south1-a"
+  zone        = "asia-south1-c"
 }
 
 resource "google_compute_instance" "vm_instance" {
   name         = "management"
   machine_type = "e2-micro"
+  tags = ["ssh", "http-server", "https-server"]
 
   boot_disk {
     initialize_params {
@@ -31,13 +32,14 @@ resource "google_compute_instance" "vm_instance" {
   }
 }
 
-resource "google_compute_firewall" "wordpress_ingress" {
-  name    = "ssh"
+resource "google_compute_firewall" "ingress" {
+  name    = "ports"
   network = "default" 
   allow {
     protocol = "tcp"
-    ports    = ["22", "80", "443"]
+    #ports    = ["22", "80", "443"]
   }
   source_ranges = ["0.0.0.0/0"]
+  target_tags = ["ssh", "http-server", "https-server"]
 }
 
